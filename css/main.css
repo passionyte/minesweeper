@@ -1,0 +1,113 @@
+body {
+    background-color: whitesmoke;
+}
+
+.text {
+    font-family:'Courier New', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.header {
+    background-color: lightgray;
+    font-family:'Courier New', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: xx-large;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+}
+
+.title {
+    background-color: lightgray;
+    font-family:'Courier New', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: x-large;
+    text-align: left;
+    font-weight: bolder
+}
+
+.subtitle {
+    background-color: lightgray;
+    font-family:'Courier New', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: large;
+    text-align: left;
+}
+
+.subsubtitle {
+    background-color: lightgray;
+    font-family:'Courier New', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: medium;
+    text-align: left;
+}
+
+.subheader {
+    background-color: lightgray;
+    font-family:'Courier New', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: xx-large;
+    text-align: left;
+}
+
+.puzzle {
+    background-color: lightgray;
+    width: 200px;
+    height: 200px;
+}
+
+.puzzleheader {
+    background-color: gray;
+    width: 100%;
+    height: 40px;
+}
+
+.tile {
+    background-color: gray;
+    width: 24px;
+    height: 24px;
+    line-height: 23px;
+    float: left;
+    text-align: center;
+}
+
+.results {
+    padding-top: 40px;
+}
+
+.puzzlesun {
+    width: 32px;
+    height: 32px;
+    margin: auto;
+    display: block;
+    left: 50%;
+}
+
+.puzzleflags {
+    width: 50px;
+    height: 30px;
+    float: left;
+}
+
+.puzzletime {
+    width: 50px;
+    height: 30px;
+    float: right;
+}
+
+.label {
+    font-family:'Courier New', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: small;
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+    float: left;
+    padding-left: 8px;
+    padding-right: 12px;
+}
+
+.footer {
+    width: 100%;
+    height: 40px;
+    font-family:'Courier New', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: small;
+    display: block;
+    position: fixed;
+    top: 100%
+}
