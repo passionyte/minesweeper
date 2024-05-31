@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>Minesweeper Clone - Game</title>
+  <link rel="icon" type="image/x-icon" href="images/temp/flag.png">
+  <link rel="stylesheet" href="./css/main.css">
+  <script src="scripts/sweeper.js" defer></script>
+</head>
+
+<body>
+    <h1 class="header">
+        Minesweeper Clone
+        <img class="icon" src="images/temp/flag.png" alt="Icon">
+    </h1>
+
+    <h2 class="subtitle">Pages:</h2>
+    <a href="./pages/howtoplay.html" class="subtitle">How to Play</a>
+
+    <h2 class="subtitle">Choose a Size:</h2>
+    <div>
+        <ul>
+            <li><button id="beginner" class="text">Beginner (9x9)</button></li>
+            <li><button id="intermediate" class="text">Intermediate (16x16)</button></li>
+            <li><button id="expert" class="text">Expert (32x16)</button></li><hr>
+            <li>
+                <button id="custom" class="text">Custom</button>
+                <div id="options" hidden>
+                    <label for="x" class="label">X Tiles:</label>
+                    <input id="x" class="text"> <br>
+                    <label for="y" class="label">Y Tiles:</label> 
+                    <input id="y" class="text"> <br>
+                    <label for="mines" class="label">Mines:</label> 
+                    <input id="mines" class="text"> <br>
+                    <button id="generate" class="text">Generate</button>
+                </div>
+                
+            </li>
+        </ul>
+    </div>
+
+    <br><hr>
+
+    <h2 class="title">Game</h2>
+    <div id="puzzle" class="puzzle">
+        <div class="puzzleheader">
+            <img id="flagcount" class="puzzleflags" src="./images/temp/nums_background.png" alt="Flags">
+            <img id="timecount" class="puzzletime" src="./images/temp/nums_background.png" alt="Time">
+            <img id="sun" class="puzzlesun" src="./images/temp/face_unpressed.png" alt="Sun" >
+        </div>
+        <div id="tiles"></div>
+        <img id="tiledummy" class="tile" src="./images/temp/closed.png" alt="Tile" hidden>
+    </div>
+
+    <div id="results" class="results" hidden>
+        <h2 id="resultstitle" class="subtitle">Game Over!</h2>
+        <a id="resultsmsg" class="text">So sad.</a><br><hr>
+        <a class="text">Hit the sun button to restart.</button>
+    </div>
+</body>
+
+</html>
