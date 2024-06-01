@@ -63,6 +63,11 @@ body {
     line-height: 23px;
     float: left;
     text-align: center;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 .results {

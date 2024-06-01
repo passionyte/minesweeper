@@ -12,13 +12,18 @@ let flags = 0
 let gameover = false 
 let first = false
 let win = false
+
 let puzzle
 let set
 let interval
+let theme = "temp"
+
+// Common UI Elements (for ease of access if used more than once)
+const sun = document.getElementById("sun")
+
 
 function tick() { // Increments timer (called by setInterval)
     timer++
-    console.log(timer)
 }
 
 function results(show) { // Displays and updates the results screen upon winning / losing
@@ -183,12 +188,12 @@ function tiledown(mouse) { // Simple press / hold image change for closed tiles 
         return
     }
 
-    document.getElementById("sun").src = "images/temp/face_active.png"
+    sun.src = `images/${theme}/face_active.png`
 
     const tile = puzzle[parseInt(mouse.target.id)]
 
     if (!tile.visible & !tile.flag) {
-        mouse.target.src = "images/temp/pressed.png"
+        mouse.target.src = `images/${theme}/pressed.png`
     }
 }
 
@@ -197,7 +202,7 @@ function tileup(mouse) { // Actual left mouse button input / click
         return
     }
 
-    document.getElementById("sun").src = "images/temp/face_unpressed.png"
+    sun.src = `images/${theme}/face_unpressed.png`
 
     const id = parseInt(mouse.target.id)
     const tile = puzzle[id]
@@ -241,7 +246,7 @@ function tileup(mouse) { // Actual left mouse button input / click
         gameover = true
 
         results(true)
-        document.getElementById("sun").src = "images/temp/face_lose.png"
+        sun.src = `images/${theme}/face_lose.png`
     }
 
     if (won()) {
@@ -249,7 +254,7 @@ function tileup(mouse) { // Actual left mouse button input / click
         win = true
 
         results(true)
-        document.getElementById("sun").src = "images/temp/face_win.png"
+        sun.src = `images/${theme}/face_win.png`
     }
 
     display()
@@ -271,7 +276,7 @@ function display() { // Given current data, let's update our display!
             tile.id = id
             tile.hidden = false
 
-            tile.src = `images/temp/${tileimage(puzzle[id])}.png` // Load tile image
+            tile.src = `images/${theme}/${tileimage(puzzle[id])}.png` // Load tile image
 
             tiles.appendChild(tile)
 
@@ -307,7 +312,7 @@ function game() { // Start a new game
     first = true
     win = false
 
-    document.getElementById("sun").src = "images/temp/face_unpressed.png"
+    sun.src = `images/${theme}/face_unpressed.png`
 
     results() // Hide results
     display() // Load display, and we're ready to go!
@@ -388,11 +393,11 @@ document.getElementById("custom").addEventListener("click", _ => { // Hide/show 
 document.getElementById("generate").addEventListener("click", generate)
 
 // SUN
-document.getElementById("sun").addEventListener("mousedown", _ => {
-    document.getElementById("sun").src = "images/temp/face_pressed.png"
+sun.addEventListener("mousedown", _ => {
+    sun.src = `images/${theme}/face_pressed.png`
 })
-document.getElementById("sun").addEventListener("mouseup", _ => {
-    document.getElementById("sun").src = "images/temp/face_unpressed.png"
+sun.addEventListener("mouseup", _ => {
+    sun.src = `images/${theme}/face_unpressed.png`
     if (set) { // Serves as a promptu restart button
         generate(set)
     }
