@@ -47,6 +47,9 @@
         <select name="theme" id="theme">
             <option value="temp">Classic</option>
         </select>
+
+        <br><br><button id="apply" class="text">Apply</button>
+        <pre id="warning" class="label" hidden><b>Warning:</b> This will reset your current game.</pre>
     </div>
 
     <br><hr>
@@ -54,8 +57,20 @@
     <h2 class="title">Game</h2>
     <div id="puzzle" class="puzzle">
         <div class="puzzleheader">
-            <img id="flagcount" class="puzzleflags" src="./images/temp/nums_background.png" alt="Flags">
-            <img id="timecount" class="puzzletime" src="./images/temp/nums_background.png" alt="Time">
+            <div>
+                <div class="puzzleflags" id="puzzleflags">
+                    <div id="flags000" class="flagcounternum"></div>
+                    <div id="flags00" class="flagcounternum"></div>
+                    <div id="flags0" class="flagcounternum"></div>
+                </div>
+            </div>
+            <div>
+                <div class="puzzletime" id="puzzletime">
+                    <div id="timer0" class="timecounternum"></div>
+                    <div id="timer00" class="timecounternum"></div>
+                    <div id="timer000" class="timecounternum"></div>
+                </div>
+            </div>
             <img id="sun" class="puzzlesun" src="./images/temp/face_unpressed.png" alt="Sun" >
         </div>
         <div id="tiles"></div>
@@ -65,7 +80,7 @@
     <div id="results" class="results" hidden>
         <h2 id="resultstitle" class="subtitle">Game Over!</h2>
         <a id="resultsmsg" class="text">So sad.</a><br><hr>
-        <a class="text">Hit the sun button to restart.</button>
+        <a class="label"><i>Hit the sun button to restart.</i></button>
     </div>
 </body>
 

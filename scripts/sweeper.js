@@ -21,17 +21,47 @@ let theme = "temp"
 // Common UI Elements (for ease of access if used more than once)
 const sun = document.getElementById("sun")
 
+function counter(diff) { // Used in main display() tick, but it would be inefficient to have the display() function run every second for the timer counter
+    if (diff) { // Update flag counter
+        const h = Math.floor((flags / 100))
+        const t = (Math.floor((flags / 10)) - h)
+        let o = Math.floor((flags - ((h * 100) + (t * 10))))
+    
+        if (o < 0) {
+            o = 0
+        }
+    
+        document.getElementById("flags000").style.backgroundImage = "url("+`/images/${theme}/d${h}.png`+")"
+        document.getElementById("flags00").style.backgroundImage = "url("+`images/${theme}/d${t}.png`+")"
+        document.getElementById("flags0").style.backgroundImage = "url("+`images/${theme}/d${o}.png`+")"
+    }
+    else { // Update time counter
+        const th = Math.floor((timer / 100))
+        const tt = (Math.floor((timer / 10)) - th)
+        let to = Math.floor((timer - ((th * 100) + (tt * 10))))
+    
+        if (to < 0) {
+           to = 0
+        }
+    
+        document.getElementById("timer000").style.backgroundImage = "url("+`/images/${theme}/d${th}.png`+")"
+        document.getElementById("timer00").style.backgroundImage = "url("+`images/${theme}/d${tt}.png`+")"
+        document.getElementById("timer0").style.backgroundImage = "url("+`images/${theme}/d${to}.png`+")"
+    }
+}
 
-function tick() { // Increments timer (called by setInterval)
+function tick() { // Increments timer (called by setInterval) and updates the counter
     timer++
+    counter()
 }
 
 function results(show) { // Displays and updates the results screen upon winning / losing
     clearInterval(interval) // Stops the timer
+    interval = null
 
     document.getElementById("results").hidden = (!show)
 
-    if (show) {
+    if (show) { // Results thing
         document.getElementById("resultstitle").innerText = (win) && "Congratulations!" || "Game Over!"
         document.getElementById("resultsmsg").innerText = (win) && "You win!" || "Too bad. So sad."
     }
@@ -305,11 +335,8 @@ function display() { // Given current data, let's update our display!
 
     // Counters
 
-    const flagcounter = document.getElementById("puzzleflags")
-
-
-
-    const timecounter = document.getElementById("puzzletime")
+    counter(true)
+    counter()
 } 
 
 function game() { // Start a new game
@@ -408,4 +435,22 @@ sun.addEventListener("mouseup", _ => {
     if (set) { // Serves as a promptu restart button
         generate(set)
     }
+})
+
+// PREFERENCES
+
+const apply = document.getElementById("apply")
+const warning = document.getElementById("warning")
+
+// Show hide preference warning (resets game, that's why)
+apply.addEventListener("mouseenter", _ => {
+    warning.hidden = false
+})
+apply.addEventListener("mouseleave", _ => {
+    warning.hidden = true
+})
+apply.addEventListener("click", _ => { // Apply new preferences
+    gameover = true
+
+
 })
