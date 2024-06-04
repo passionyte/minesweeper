@@ -31,7 +31,7 @@ function counter(diff) { // Used in main display() tick, but it would be ineffic
             o = 0
         }
     
-        document.getElementById("flags000").style.backgroundImage = "url("+`/images/${theme}/d${h}.png`+")"
+        document.getElementById("flags000").style.backgroundImage = "url("+`images/${theme}/d${h}.png`+")"
         document.getElementById("flags00").style.backgroundImage = "url("+`images/${theme}/d${t}.png`+")"
         document.getElementById("flags0").style.backgroundImage = "url("+`images/${theme}/d${o}.png`+")"
     }
@@ -44,7 +44,7 @@ function counter(diff) { // Used in main display() tick, but it would be ineffic
            to = 0
         }
     
-        document.getElementById("timer000").style.backgroundImage = "url("+`/images/${theme}/d${th}.png`+")"
+        document.getElementById("timer000").style.backgroundImage = "url("+`images/${theme}/d${th}.png`+")"
         document.getElementById("timer00").style.backgroundImage = "url("+`images/${theme}/d${tt}.png`+")"
         document.getElementById("timer0").style.backgroundImage = "url("+`images/${theme}/d${to}.png`+")"
     }
