@@ -105,7 +105,7 @@ function tileimage(tile) { // Return tile image name
             return "mine_red"
         }
     }
-    else if (tile.visible) {
+    else if (tile.visible || win) {
         let mines = adjacentmines(tile)
 
         if (mines > 0) {
@@ -115,7 +115,7 @@ function tileimage(tile) { // Return tile image name
             return "pressed"
         }
     }
-    return (win) && "pressed" || "closed"
+    return "closed"
 }
 
 function adjacents(tile) { // Returns the tiles adjacent to the given tile
@@ -167,6 +167,10 @@ function flag(mouse) { // Flag our tile
         return
     }
 
+    if (!interval) {
+        interval = setInterval(tick, 1000) // Get timer going
+    }
+
     const tile = puzzle[parseInt(mouse.target.id)]
 
     if (!tile.visible) {
@@ -200,6 +204,10 @@ function tiledown(mouse) { // Simple press / hold image change for closed tiles 
 function tileup(mouse) { // Actual left mouse button input / click
     if (gameover) {
         return
+    }
+
+    if (!interval) {
+        interval = setInterval(tick, 1000) // Get timer going
     }
 
     sun.src = `images/${theme}/face_unpressed.png`
@@ -316,7 +324,6 @@ function game() { // Start a new game
 
     results() // Hide results
     display() // Load display, and we're ready to go!
-    interval = setInterval(tick, 1000) // Get timer going
 }
 
 function generate(mode) { // Generates a puzzle based on either the selected mode; or custom properties which the user presumably inputted
