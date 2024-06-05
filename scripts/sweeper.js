@@ -142,6 +142,7 @@ function chord(tile, special) { // Chords from a given tile
 
         if (mines > 0) {
             lastmines = mines
+        }
     }
 }
 
@@ -483,9 +484,9 @@ apply.addEventListener("mouseleave", _ => {
 })
 apply.addEventListener("click", _ => { // Apply new preferences
     // Preference assigning
-   // theme = document.getElementById("theme").value
+    theme = document.getElementById("theme").value
 
-    //if (set) { // Reset current game
-    //    generate(set)
-    //}
+    if (set) { // Reset current game
+        generate(set)
+    }
 })
