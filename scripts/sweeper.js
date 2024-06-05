@@ -119,7 +119,6 @@ function chord(tile, special) { // Chords from a given tile
 
     if (special) {
         flagcount = adjacentflags(tile)
-        chords++
     }
 
     let lastmines = -1
@@ -309,6 +308,7 @@ function tileup(mouse) { // Actual left mouse button input / click
     }
     else if (!tile.mine) { // Chord
         chord(tile, true)
+        chords++
     }
     else { // BOOM!
         tile.kill = true
