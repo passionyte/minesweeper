@@ -12,6 +12,8 @@ let flags = 0
 let gameover = false 
 let first = false
 let win = false
+let clicks = 0
+let chords = 0
 
 let puzzle
 let set
@@ -23,27 +25,45 @@ const sun = document.getElementById("sun")
 
 function counter(diff) { // Used in main display() tick, but it would be inefficient to have the display() function run every second for the timer counter
     if (diff) { // Update flag counter
-        const h = Math.floor((flags / 100))
-        const t = (Math.floor((flags / 10)) - h)
-        let o = Math.floor((flags - ((h * 100) + (t * 10))))
-    
-        if (o < 0) {
-            o = 0
+        let safeflags = Math.abs(flags) // Utilize the absolute value of 'flags', as flags can be negative and it can cause issues
+
+        let h = Math.floor((safeflags / 100))
+        let t = (Math.floor((safeflags / 10)) - (h * 10))
+        let o = Math.floor((safeflags - ((h * 100) + (t * 10))))
+
+        if (safeflags > 999) { // Cap at 999
+            h = 9
+            t = 9
+            o = 9
+        }
+
+        // Display negatives accordingly
+        if (flags < -9 && flags > -100) { 
+            t = Math.abs(t)
+            h = "-"
+        }
+        else if (flags < 0 && flags > -10) {
+            o = Math.abs(o)
+            t = "-"
         }
     
+        // Assign number images
         document.getElementById("flags000").style.backgroundImage = "url("+`images/${theme}/d${h}.png`+")"
         document.getElementById("flags00").style.backgroundImage = "url("+`images/${theme}/d${t}.png`+")"
         document.getElementById("flags0").style.backgroundImage = "url("+`images/${theme}/d${o}.png`+")"
     }
     else { // Update time counter
-        const th = Math.floor((timer / 100))
-        const tt = (Math.floor((timer / 10)) - th)
+        let th = Math.floor((timer / 100)) // 'timer' should never be negative so no code for negative number displays is needed
+        let tt = (Math.floor((timer / 10)) - (th * 10))
         let to = Math.floor((timer - ((th * 100) + (tt * 10))))
-    
-        if (to < 0) {
-           to = 0
+
+        if (timer > 999) { // Cap at 999
+            th = 9
+            tt = 9
+            to = 9
         }
-    
+
+        // Assign number images
         document.getElementById("timer000").style.backgroundImage = "url("+`images/${theme}/d${th}.png`+")"
         document.getElementById("timer00").style.backgroundImage = "url("+`images/${theme}/d${tt}.png`+")"
         document.getElementById("timer0").style.backgroundImage = "url("+`images/${theme}/d${to}.png`+")"
@@ -57,13 +77,17 @@ function tick() { // Increments timer (called by setInterval) and updates the co
 
 function results(show) { // Displays and updates the results screen upon winning / losing
     clearInterval(interval) // Stops the timer
-    interval = null
+    interval = null // Necessary because clearInterval does not assign argument to null
 
     document.getElementById("results").hidden = (!show)
 
     if (show) { // Results thing
         document.getElementById("resultstitle").innerText = (win) && "Congratulations!" || "Game Over!"
         document.getElementById("resultsmsg").innerText = (win) && "You win!" || "Too bad. So sad."
+        document.getElementById("clicks").innerText = `Clicks: ${clicks}`
+        document.getElementById("chords").innerText = `Chords: ${chords}`
+        document.getElementById("flagsplaced").innerText = `Flags Placed: ${(set.mines - flags)}`
+        document.getElementById("rawtime").innerText = `Raw Time: ${timer}`
     }
 }
 
@@ -82,7 +106,9 @@ function won() { // Check if player has WON?!
 
 function clearcheck(adjs) { // Checks adjacents for clear tiles
     for (let i = 0; (i < adjs.length); i++) {
-        if (adjacentmines(adjs[i]) == 0) {
+        if (adjacentmines(adjs[i]) == 0) {    if (set) { // Reset current game
+            generate(set)
+        }
             return true
         }
     }
@@ -95,26 +121,31 @@ function chord(tile, special) { // Chords from a given tile
 
     if (special) {
         flagcount = adjacentflags(tile)
+        chords++
     }
 
-    let lastmines = -1
+    let lastmines = -1 // Using 0 would make it match other tiles...
 
     for (let i = 0; (i < adjs.length); i++) {
         const check = adjs[i]
 
-        if (check.mine) {
+        if (check.mine && !special) { // Stop on mines if not a flag chord
             break
         }
 
+        // How many mines and flags are around this tile?
         const mines = adjacentmines(check)
         const flags = adjacentflags(check)
 
-        if ((clearcheck(adjs) || (special && (((flagcount > 0) || (flags > 0)) && flags == flagcount)) || (lastmines == mines)) && (!check.visible)) {
+        if ((clearcheck(adjs) || (special && (((flagcount > 0) || (flags > 0)) && flags == flagcount)) || (lastmines == mines)) && (!check.visible && !check.mine)) { // Chord checks (needs fixing)
             check.visible = true
 
             chord(check, special)
         }
-        lastmines = mines
+
+        if (mines > 0) {
+            lastmines = mines
+        }
     }
 }
 
@@ -249,6 +280,8 @@ function tileup(mouse) { // Actual left mouse button input / click
         return
     }
 
+    clicks++
+
     if (first) { // Prevents mines from being on your first click, lol
         first = false
         if (tile.mine) {
@@ -346,6 +379,8 @@ function game() { // Start a new game
     gameover = false
     first = true
     win = false
+    clicks = 0
+    chords = 0
 
     sun.src = `images/${theme}/face_unpressed.png`
 
@@ -450,7 +485,10 @@ apply.addEventListener("mouseleave", _ => {
     warning.hidden = true
 })
 apply.addEventListener("click", _ => { // Apply new preferences
-    gameover = true
+    // Preference assigning
+    theme = document.getElementById("theme").value
 
-
+    //if (set) { // Reset current game
+    //    generate(set)
+    //}
 })
