@@ -106,9 +106,7 @@ function won() { // Check if player has WON?!
 
 function clearcheck(adjs) { // Checks adjacents for clear tiles
     for (let i = 0; (i < adjs.length); i++) {
-        if (adjacentmines(adjs[i]) == 0) {    if (set) { // Reset current game
-            generate(set)
-        }
+        if (adjacentmines(adjs[i]) == 0) {
             return true
         }
     }
@@ -124,30 +122,29 @@ function chord(tile, special) { // Chords from a given tile
         chords++
     }
 
-    let lastmines = -1 // Using 0 would make it match other tiles...
+    let lastmines = -1
 
     for (let i = 0; (i < adjs.length); i++) {
         const check = adjs[i]
 
-        if (check.mine && !special) { // Stop on mines if not a flag chord
+        if (check.mine && !special) {
             break
         }
 
-        // How many mines and flags are around this tile?
         const mines = adjacentmines(check)
         const flags = adjacentflags(check)
 
-        if ((clearcheck(adjs) || (special && (((flagcount > 0) || (flags > 0)) && flags == flagcount)) || (lastmines == mines)) && (!check.visible && !check.mine)) { // Chord checks (needs fixing)
+        if ((clearcheck(adjs) || (special && (((flagcount > 0) || (flags > 0)) && flags == flagcount)) || (lastmines == mines)) && (!check.visible && !check.mine)) {
             check.visible = true
 
             chord(check, special)
         }
 
-        //if (mines > 0) {
+        if (mines > 0) {
             lastmines = mines
-        //}
     }
 }
+
 
 function tileimage(tile) { // Return tile image name
     if (tile.flag) {
@@ -486,7 +483,7 @@ apply.addEventListener("mouseleave", _ => {
 })
 apply.addEventListener("click", _ => { // Apply new preferences
     // Preference assigning
-    theme = document.getElementById("theme").value
+   // theme = document.getElementById("theme").value
 
     //if (set) { // Reset current game
     //    generate(set)
