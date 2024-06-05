@@ -84,10 +84,10 @@ function results(show) { // Displays and updates the results screen upon winning
     if (show) { // Results thing
         document.getElementById("resultstitle").innerText = (win) && "Congratulations!" || "Game Over!"
         document.getElementById("resultsmsg").innerText = (win) && "You win!" || "Too bad. So sad."
-        document.getElementById("clicks").innerText = `Clicks: ${clicks}`
-        document.getElementById("chords").innerText = `Chords: ${chords}`
-        document.getElementById("flagsplaced").innerText = `Flags Placed: ${(set.mines - flags)}`
-        document.getElementById("rawtime").innerText = `Raw Time: ${timer}`
+        document.getElementById("clicks").innerHTML = `Clicks: ${clicks}`
+        document.getElementById("chords").innerHTML = `Chords: ${chords}`
+        document.getElementById("flagsplaced").innerHTML = `Flags Placed: ${(set.mines - flags)}`
+        document.getElementById("rawtime").innerHTML = `Raw Time: ${timer}`
     }
 }
 
