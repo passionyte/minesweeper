@@ -143,9 +143,9 @@ function chord(tile, special) { // Chords from a given tile
             chord(check, special)
         }
 
-        if (mines > 0) {
+        //if (mines > 0) {
             lastmines = mines
-        }
+        //}
     }
 }
 
