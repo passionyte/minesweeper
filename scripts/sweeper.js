@@ -3,7 +3,7 @@
 const tilesets = [ // Pre assumed puzzles (available via button on site)
     {id: "beginner", x: 9, y: 9, mines: 10},
     {id: "intermediate", x: 16, y: 16, mines: 40},
-    {id: "expert", x: 32, y: 16, mines: 99}
+    {id: "expert", x: 30, y: 16, mines: 99}
 ]
 
 // Various properties
@@ -318,7 +318,7 @@ function tileup(mouse) { // Actual left mouse button input / click
         sun.src = `images/${theme}/face_lose.png`
     }
 
-    if (won()) {
+    if (won()) { // Victory!
         gameover = true
         win = true
 
