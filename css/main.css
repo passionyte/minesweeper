@@ -143,6 +143,6 @@ footer {
     background-image: url("../images/temp/d0.png");
     background-size: 100% 100%;
     float: right;
-    padding-left: 1px;
+    padding-right: 1px;
     background-origin: content-box;
 }
