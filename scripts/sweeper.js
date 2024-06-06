@@ -18,6 +18,8 @@ let chords = 0
 let puzzle
 let set
 let interval
+
+// Preferences (Defaults)
 let theme = "temp"
 
 // Common UI Elements (for ease of access if used more than once)
@@ -327,6 +329,10 @@ function tileup(mouse) { // Actual left mouse button input / click
     }
 
     display()
+}
+
+function hi() {
+    console.log("hi")
 }
 
 function display() { // Given current data, let's update our display!
