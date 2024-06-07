@@ -74,7 +74,7 @@ function counter(diff) { // Used in main display() tick, but it would be ineffic
 
 function tick() { // Increments timer (called by setInterval) and updates the counter
     timer++
-    counter()
+    counter() // Make sure counter updates at interval
 }
 
 function results(show) { // Displays and updates the results screen upon winning / losing
@@ -83,7 +83,7 @@ function results(show) { // Displays and updates the results screen upon winning
 
     document.getElementById("results").hidden = (!show)
 
-    if (show) { // Results thing
+    if (show) { // Results tab
         document.getElementById("resultstitle").innerText = (win) && "Congratulations!" || "Game Over!"
         document.getElementById("resultsmsg").innerText = (win) && "You win!" || "Too bad. So sad."
         document.getElementById("clicks").innerHTML = `Clicks: ${clicks}`
@@ -119,7 +119,7 @@ function clearcheck(adjs) { // Checks adjacents for clear tiles
 function chord(tile, special) { // Chords from a given tile
     const adjs = adjacents(tile)
 
-    if (special) {
+    if (special) { // "special" represents a intentional chord / flag chord
         flagcount = adjacentflags(tile)
     }
 
@@ -132,10 +132,11 @@ function chord(tile, special) { // Chords from a given tile
             break
         }
 
+        // Get number of adjacent mines and flags
         const mines = adjacentmines(check)
         const flags = adjacentflags(check)
 
-        if ((clearcheck(adjs) || (special && (((flagcount > 0) || (flags > 0)) && flags == flagcount)) || (lastmines == mines)) && (!check.visible && !check.mine)) {
+        if ((clearcheck(adjs) || (special && (((flagcount > 0) || (flags > 0)) && flags == flagcount)) || (lastmines == mines)) && (!check.visible && !check.mine)) { // Chord checks
             check.visible = true
 
             chord(check, special)
@@ -256,7 +257,7 @@ function tiledown(mouse) { // Simple press / hold image change for closed tiles 
 
     const tile = puzzle[parseInt(mouse.target.id)]
 
-    if (!tile.visible & !tile.flag) {
+    if (!tile.visible & !tile.flag) { // We don't want closed tiles or flag tiles to do this
         mouse.target.src = `images/${theme}/pressed.png`
     }
 }
@@ -329,10 +330,6 @@ function tileup(mouse) { // Actual left mouse button input / click
     }
 
     display()
-}
-
-function hi() {
-    console.log("hi")
 }
 
 function display() { // Given current data, let's update our display!
@@ -477,7 +474,6 @@ sun.addEventListener("mouseup", _ => {
 })
 
 // PREFERENCES
-
 const apply = document.getElementById("apply")
 const warning = document.getElementById("warning")
 
