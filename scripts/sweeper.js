@@ -91,10 +91,15 @@ function results(show) { // Displays and updates the results screen upon winning
         document.getElementById("chords").innerHTML = `Chords: ${chords}`
         document.getElementById("flagsplaced").innerHTML = `Flags Placed: ${(set.mines - flags)}`
         document.getElementById("rawtime").innerHTML = `Raw Time: ${timer}`
+
+        let progress = won(true)
+        let sum = (puzzle.length - set.mines)
+
+        document.getElementById("progress").innerHTML = `Progress: ${progress} / ${sum} (${Math.floor((progress / sum) * 100)}%)`
     }
 }
 
-function won() { // Check if player has WON?!
+function won(prog) { // Check if player has WON?!
     const sum = (puzzle.length - set.mines)
     let progress = 0
 
@@ -104,7 +109,7 @@ function won() { // Check if player has WON?!
         }
     }
 
-    return (progress >= sum)
+    return (prog) && progress || (progress >= sum)
 }
 
 function clearcheck(adjs) { // Checks adjacents for clear tiles
