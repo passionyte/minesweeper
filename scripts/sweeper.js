@@ -29,7 +29,7 @@ function counter(diff) { // Used in main display() tick, but it would be ineffic
     if (diff) { // Update flag counter
         let safeflags = Math.abs(flags) // Utilize the absolute value of 'flags', as flags can be negative and it can cause issues
 
-        let h = Math.floor((safeflags / 100))
+        let h = Math.floor((safeflags / 100)) // Get each digit
         let t = (Math.floor((safeflags / 10)) - (h * 10))
         let o = Math.floor((safeflags - ((h * 100) + (t * 10))))
 
@@ -55,7 +55,8 @@ function counter(diff) { // Used in main display() tick, but it would be ineffic
         document.getElementById("flags0").style.backgroundImage = "url("+`images/${theme}/d${o}.png`+")"
     }
     else { // Update time counter
-        let th = Math.floor((timer / 100)) // 'timer' should never be negative so no code for negative number displays is needed
+        // 'timer' should never be negative so no code for negative number displays is needed
+        let th = Math.floor((timer / 100)) // Get each digit
         let tt = (Math.floor((timer / 10)) - (th * 10))
         let to = Math.floor((timer - ((th * 100) + (tt * 10))))
 
@@ -149,7 +150,7 @@ function chord(tile, special) { // Chords from a given tile
 }
 
 
-function tileimage(tile) { // Return tile image name
+function tileimage(tile) { // Return tile image name based on tile states
     if (tile.flag) {
         if (gameover && !tile.mine) {
             return "mine_wrong"
