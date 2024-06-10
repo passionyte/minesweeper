@@ -95,7 +95,7 @@ function results(show) { // Displays and updates the results screen upon winning
         let progress = won(true)
         let sum = (puzzle.length - set.mines)
 
-        document.getElementById("progress").innerHTML = `Progress: ${progress} / ${sum} (${Math.floor((progress / sum) * 100)}%)`
+        document.getElementById("progress").innerHTML = `Tiles Remaining: ${(sum - progress)}`
     }
 }
 
@@ -129,27 +129,51 @@ function chord(tile, special) { // Chords from a given tile
         flagcount = adjacentflags(tile)
     }
 
-    let lastmines = -1
+    if ((!special) || (flagcount > 0)) {
+        let lastmines = -1
 
-    for (let i = 0; (i < adjs.length); i++) {
-        const check = adjs[i]
+        for (let i = 0; (i < adjs.length); i++) {
+            const check = adjs[i]
 
-        if (check.mine && !special) {
-            break
-        }
+            if (check.mine && !special) {
+                break
+            }
 
-        // Get number of adjacent mines and flags
-        const mines = adjacentmines(check)
-        const flags = adjacentflags(check)
+            // Get number of adjacent mines and flags
+            const mines = adjacentmines(check)
+            const flags = adjacentflags(check)
 
-        if ((clearcheck(adjs) || (special && (((flagcount > 0) || (flags > 0)) && flags == flagcount)) || (lastmines == mines)) && (!check.visible && !check.mine)) { // Chord checks
-            check.visible = true
+            if (!check.visible) {
+                if (special) {
+                    if ((check.mine && !check.flag) && (flags == mines)) { // Force a loss in this case
+                        check.kill = true
 
-            chord(check, special)
-        }
+                        gameover = true
 
-        if (mines > 0) {
-            lastmines = mines
+                        results(true)
+                        sun.src = `images/${theme}/face_lose.png`
+
+                        break
+                    }
+
+                    if ((clearcheck(adjs)) || ((flags == flagcount) && (flags == mines))) {
+                        check.visible = true
+                        chord(check, false)
+                    }
+                }
+                else {
+                    if ((clearcheck(adjs) || (lastmines == mines)) && (!check.mine)) {
+                        check.visible = true
+
+                        chord(check, false)
+                    }
+                }
+            }
+            
+
+            if (mines > 0) {
+                lastmines = mines
+            }
         }
     }
 }
