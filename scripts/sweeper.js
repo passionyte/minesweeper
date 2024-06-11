@@ -92,8 +92,8 @@ function results(show) { // Displays and updates the results screen upon winning
         document.getElementById("flagsplaced").innerHTML = `Flags Placed: ${(set.mines - flags)}`
         document.getElementById("rawtime").innerHTML = `Raw Time: ${timer}`
 
-        let progress = won(true)
-        let sum = (puzzle.length - set.mines)
+        const progress = won(true)
+        const sum = (puzzle.length - set.mines)
 
         document.getElementById("progress").innerHTML = `Tiles Remaining: ${(sum - progress)}`
     }
