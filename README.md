@@ -3,4 +3,3 @@
 
 Minesweeper HTML &amp; JS game
 Utilizes 2D arrays and a lot of loops
-To be edited and cloned elsewhere
